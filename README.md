@@ -11,6 +11,8 @@ The project includes:
 - Remote backend using S3
 - State locking using DynamoDB
 
+This reflects real-world Infrastructure as Code (IaC) practices used by Cloud and DevOps Engineers.
+
 Step 1 — Create S3 Bucket
 - Enable versioning
 <img width="1339" height="616" alt="Screenshot 2026-04-08 172241" src="https://github.com/user-attachments/assets/72d2cabb-4ef4-4194-8f33-10b4d3502a86" />
