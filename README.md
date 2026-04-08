@@ -4,9 +4,9 @@ This project demonstrates how to provision a custom Virtual Private Cloud (VPC) 
 
 The project includes:
 
-Custom VPC
-Public subnet
-Internet Gateway
-Route Table configuration
-Remote backend using S3
-State locking using DynamoDB
+- Custom VPC
+- Public subnet
+- Internet Gateway
+- Route Table configuration
+- Remote backend using S3
+- State locking using DynamoDB
