@@ -1,0 +1,4 @@
+
+bucket_name     = "YOUR-S3-BUCKET-NAME"
+region_name     = "us-east-1"
+dynamodb_table  = "YOUR-DYNAMODB-TABLE-NAME"
