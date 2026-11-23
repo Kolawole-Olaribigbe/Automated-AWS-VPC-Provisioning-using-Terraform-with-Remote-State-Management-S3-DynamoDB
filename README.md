@@ -1,17 +1,151 @@
-# Automated-AWS-VPC-Provisioning-using-Terraform-with-Remote-State-Management-S3-DynamoDB
+# Automated AWS VPC Provisioning with Terraform and Remote State Management
 
-This project demonstrates how to provision a custom Virtual Private Cloud (VPC) in Amazon Web Services using Terraform, while implementing a remote backend for secure state management.
+## Project Overview
 
-The project includes:
+This project demonstrates the use of **Terraform Infrastructure as Code (IaC)** to provision and manage a custom Virtual Private Cloud (VPC) in Amazon Web Services (AWS).
 
-- Custom VPC
-- Public subnet
-- Internet Gateway
-- Route Table configuration
-- Remote backend using S3
-- State locking using DynamoDB
+It also implements remote Terraform state management using **Amazon S3**, with bucket versioning enabled, and **Amazon DynamoDB** for state locking.
 
-This reflects real-world Infrastructure as Code (IaC) practices used by Cloud and DevOps Engineers.
+The objective was to build a repeatable and manageable cloud networking foundation while applying infrastructure management practices used in real-world Cloud and DevOps environments.
+
+Rather than relying entirely on manual configuration through the AWS Management Console, this project uses Terraform to define infrastructure as code and introduces remote state management to support safer infrastructure collaboration and change management.
+
+## Project Objectives
+
+- Provision a custom AWS VPC using Terraform.
+- Configure a public subnet for network connectivity.
+- Attach an Internet Gateway to the VPC.
+- Configure route tables to support public network routing.
+- Configure an Amazon S3 bucket as the remote Terraform state backend.
+- Enable S3 bucket versioning to maintain previous state versions.
+- Implement state locking using Amazon DynamoDB.
+- Apply Infrastructure as Code principles to cloud infrastructure provisioning.
+
+## Architecture and AWS Resources
+
+The project uses the following AWS services and infrastructure components:
+
+| Component | Purpose |
+|---|---|
+| Amazon VPC | Provides an isolated virtual network environment |
+| Public Subnet | Provides a subnet for resources requiring public network connectivity |
+| Internet Gateway | Enables communication between the VPC and the internet |
+| Route Table | Defines network traffic routing |
+| Amazon S3 | Stores Terraform state remotely |
+| S3 Versioning | Preserves previous versions of the Terraform state file |
+| Amazon DynamoDB | Supports Terraform state locking |
+
+## Technologies Used
+
+- **Amazon Web Services (AWS):** VPC, Subnets, Internet Gateway, Route Tables, S3 and DynamoDB
+- **Terraform:** Infrastructure as Code
+- **Cloud Networking:** VPC networking, subnet configuration and routing
+- **Remote State Management:** S3 backend and DynamoDB state locking
+
+## Implementation
+
+### 1. Remote State Infrastructure
+
+Created an Amazon S3 bucket to serve as the remote backend for Terraform state management.
+
+S3 bucket versioning was enabled to preserve previous versions of the state file and provide a recovery mechanism for earlier state versions.
+
+Amazon DynamoDB was configured to support Terraform state locking, helping prevent concurrent Terraform operations from modifying the same state simultaneously.
+
+### 2. VPC Provisioning
+
+Used Terraform to define the custom AWS VPC and its networking components.
+
+The infrastructure includes:
+
+- A custom Virtual Private Cloud.
+- A public subnet.
+- An Internet Gateway.
+- Route table configuration.
+
+### Terraform Remote Backend Configuration
+
+This project uses an Amazon S3 remote backend to store Terraform state and Amazon DynamoDB to implement state locking.
+
+The following example represents the backend configuration used during the project. Resource identifiers have been replaced with placeholders.
+
+```hcl
+terraform {
+  backend "s3" {
+    bucket         = "YOUR-S3-BUCKET-NAME"
+    key            = "dev/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "YOUR-DYNAMODB-TABLE-NAME"
+    encrypt        = true
+  }
+}
+```
+
+**Configuration details**
+
+| Argument | Description |
+|---|---|
+| `bucket` | S3 bucket used for remote Terraform state storage |
+| `key` | Object path where the Terraform state file is stored |
+| `region` | AWS region containing the backend resources |
+| `dynamodb_table` | DynamoDB table used for Terraform state locking |
+| `encrypt` | Enables server-side encryption of the remote state object |
+
+**Why remote state management matters**
+
+- Centralises Terraform state instead of relying exclusively on a local state file.
+- Supports collaboration by allowing authorised users and automation workflows to access shared state.
+- Helps prevent conflicting Terraform operations through state locking.
+- Supports recovery of previous state versions when S3 bucket versioning is enabled.
+
+**Note on the locking implementation**
+
+This project demonstrates DynamoDB-based state locking. HashiCorp has since deprecated the `dynamodb_table` backend argument and recommends native Amazon S3 state locking using `use_lockfile = true` for new implementations.
+
+This distinction is important when comparing this project with current Terraform best practices.
+
+For further information, see the [official Terraform S3 backend documentation](https://developer.hashicorp.com/terraform/language/backend/s3).
+
+### 4. Infrastructure Deployment
+
+Applied the Terraform configuration to provision the defined infrastructure in AWS.
+
+The implementation demonstrates how infrastructure resources can be described, managed and provisioned through code.
+
+### 5. Infrastructure Verification
+
+The project includes screenshots documenting the implementation process and the AWS resources created during deployment.
+
+These provide visual evidence of the infrastructure configuration and deployment workflow.
+
+## Key Engineering Concepts Demonstrated
+
+Through this project, I applied and explored several important Cloud and DevOps engineering concepts:
+
+- **Infrastructure as Code:** Defining cloud resources using Terraform instead of relying entirely on manual provisioning.
+- **Cloud Networking:** Building a VPC with subnet, Internet Gateway and route table configurations.
+- **Remote State Management:** Storing Terraform state remotely using Amazon S3.
+- **State Versioning:** Enabling S3 versioning to preserve previous state file versions.
+- **State Locking:** Using DynamoDB to support controlled Terraform state operations.
+- **Infrastructure Management:** Organising cloud infrastructure around repeatable, code-driven provisioning practices.
+
+## Project Evidence
+
+Screenshots documenting the implementation are included in this repository.
+
+They provide evidence of the AWS resource configuration, Terraform implementation and remote state management setup.
+
+## Skills Demonstrated
+
+`AWS` · `Terraform` · `Infrastructure as Code` · `Amazon VPC` · `Cloud Networking` · `Amazon S3` · `DynamoDB` · `Remote State Management` · `State Locking` · `Cloud Infrastructure Provisioning`
+
+## Conclusion
+
+This project strengthened my practical understanding of AWS networking and Terraform-based infrastructure provisioning.
+
+It also provided hands-on experience with remote state management, S3 versioning and DynamoDB state locking—important concepts for managing cloud infrastructure in collaborative and production-oriented environments.
+
+It represents part of my continued development as an **Aspiring Cloud Infrastructure and DevOps Engineer**, with a focus on automation, infrastructure reliability and modern cloud engineering practices.
 
 Step 1 — Create S3 Bucket
 - Enable versioning
